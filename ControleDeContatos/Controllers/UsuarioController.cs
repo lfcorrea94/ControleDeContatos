@@ -75,6 +75,40 @@ namespace ControleDeContatos.Controllers
             }
 
         }
+        // Métodos POST
+        [HttpPost]
+        public IActionResult Alterar(UsuarioSemSenhaModel usuarioSemSenha)
+        {
+            try
+            {
+                UsuarioModel usuario = null;
+
+                if (ModelState.IsValid)
+                {                    
+                    // Da UsuarioSemSenhaModel pegamos o model sem a senha para atualizar a UsuarioModel
+                    usuario = new UsuarioModel()
+                    {
+                        Id = usuarioSemSenha.Id,
+                        Nome = usuarioSemSenha.Nome,
+                        Login = usuarioSemSenha.Login,
+                        Email = usuarioSemSenha.Email,
+                        Perfil = usuarioSemSenha.Perfil
+                    };
+
+                    usuario = _usuarioRepositorio.Atualizar(usuario);
+                    TempData["MensagemSucesso"] = "Usuário alterado com sucesso";
+                    return RedirectToAction("Index"); // Vai ser alterado depois pro padrão REST
+                }
+                return View(usuarioSemSenha);
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos atualizar seu usuário, tente novamente, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index"); // Vai ser alterado depois pro padrão REST  
+            }
+
+        }
     }
-    
 }
+    
+
