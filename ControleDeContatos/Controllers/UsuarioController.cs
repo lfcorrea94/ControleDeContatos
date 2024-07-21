@@ -22,6 +22,11 @@ namespace ControleDeContatos.Controllers
         {
             return View();
         }
+        public IActionResult Editar(int id)
+        {
+            UsuarioModel usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
         // Métodos POST
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
@@ -43,5 +48,33 @@ namespace ControleDeContatos.Controllers
                 return RedirectToAction("Index"); // Vai ser alterado depois pro padrão REST  
             }
         }
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            UsuarioModel usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
+        public IActionResult Apagar(int id)
+        {
+            try
+            {
+                bool apagado = _usuarioRepositorio.Apagar(id);
+                if (apagado)
+                {
+                    TempData["MensagemSucesso"] = "Usuário apagado com sucesso!";
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Ops, não conseguimos apagar seu Usuário!";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos apagar seu Usuário, mais detalhes do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
+
+        }
     }
+    
 }
