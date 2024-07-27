@@ -21,6 +21,7 @@ namespace ControleDeContatos
             
             // Injeção de dependência. Toda vez que a interface for invocada, a injeção automaticamente vai usar tudo da classe repositorio
             builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             var app = builder.Build();
 
@@ -37,7 +38,7 @@ namespace ControleDeContatos
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             app.Run();
         }
