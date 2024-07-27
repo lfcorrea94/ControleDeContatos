@@ -9,7 +9,7 @@
 
 </div>
 
-<form asp-controller="Usuario" asp-action="Alterar" method="post">
+<form asp-controller="Usuario" asp-action="Editar" method="post">
 
     <input type="hidden" asp-for="Id" />
 
@@ -39,9 +39,9 @@
         <select asp-for="Perfil" class="form-control" >
             <option value="">Selecione</option>
             <option value="@PerfilEnum.Admin" >Administrador</option>
-            <option value="@PerfilEnum.Padrao" >Padrao</option>
-            @Html.ValidationMessageFor(x => x.Perfil)
+            <option value="@PerfilEnum.Padrao" >Padrao</option>         
         </select>
+        @Html.ValidationMessageFor(x => x.Perfil)
     </div>
     <br />
 

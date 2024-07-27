@@ -77,7 +77,7 @@ namespace ControleDeContatos.Controllers
         }
         // Métodos POST
         [HttpPost]
-        public IActionResult Alterar(UsuarioSemSenhaModel usuarioSemSenha)
+        public IActionResult Editar(UsuarioSemSenhaModel usuarioSemSenha)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace ControleDeContatos.Controllers
                     TempData["MensagemSucesso"] = "Usuário alterado com sucesso";
                     return RedirectToAction("Index"); // Vai ser alterado depois pro padrão REST
                 }
-                return View(usuarioSemSenha);
+                return View(usuario);
             }
             catch (Exception erro)
             {
